@@ -64,12 +64,12 @@ public class HibernateConfiguration {
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://localhost:3306/teacher_off?characterEncoding=UTF-8");
-        dataSource.setUsername("root");
-        dataSource.setPassword("root");
-//        dataSource.setUrl("jdbc:mysql://teacherdb.cjflgjcfknvx.us-east-1.rds.amazonaws.com/teacherdb?characterEncoding=UTF-8");
+//        dataSource.setUrl("jdbc:mysql://localhost:3306/teacher_off?characterEncoding=UTF-8");
 //        dataSource.setUsername("root");
-//        dataSource.setPassword("12345678");
+//        dataSource.setPassword("root");
+        dataSource.setUrl("jdbc:mysql://teacherdb.cjflgjcfknvx.us-east-1.rds.amazonaws.com/teacherdb?characterEncoding=UTF-8");
+        dataSource.setUsername("root");
+        dataSource.setPassword("12345678");
         return dataSource;
     }
      
