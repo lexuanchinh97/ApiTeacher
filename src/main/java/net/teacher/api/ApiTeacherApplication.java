@@ -1,4 +1,4 @@
-package net.teacher.api.api_teacher;
+package net.teacher.api;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
