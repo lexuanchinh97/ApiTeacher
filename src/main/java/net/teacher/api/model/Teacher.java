@@ -2,6 +2,7 @@ package net.teacher.api.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import java.util.List;
 
 
 /**
@@ -36,18 +37,17 @@ public class Teacher implements Serializable {
 
 	private String university;
 
-	//bi-directional many-to-one association to Class
-	@ManyToOne
-	@JoinColumn(name="class_id")
-	private Class clazz;
+	//bi-directional many-to-one association to TeacherClass
+	@OneToMany(mappedBy="teacher")
+	private List<TeacherClass> teacherClasses;
+
+	//bi-directional many-to-one association to TeacherSubject
+	@OneToMany(mappedBy="teacher")
+	private List<TeacherSubject> teacherSubjects;
 
 	//bi-directional many-to-one association to District
 	@ManyToOne
 	private District district;
-
-	//bi-directional many-to-one association to Subject
-	@ManyToOne
-	private Subject subject;
 
 	public Teacher() {
 	}
@@ -132,12 +132,48 @@ public class Teacher implements Serializable {
 		this.university = university;
 	}
 
-	public Class getClazz() {
-		return this.clazz;
+	public List<TeacherClass> getTeacherClasses() {
+		return this.teacherClasses;
 	}
 
-	public void setClazz(Class clazz) {
-		this.clazz = clazz;
+	public void setTeacherClasses(List<TeacherClass> teacherClasses) {
+		this.teacherClasses = teacherClasses;
+	}
+
+	public TeacherClass addTeacherClass(TeacherClass teacherClass) {
+		getTeacherClasses().add(teacherClass);
+		teacherClass.setTeacher(this);
+
+		return teacherClass;
+	}
+
+	public TeacherClass removeTeacherClass(TeacherClass teacherClass) {
+		getTeacherClasses().remove(teacherClass);
+		teacherClass.setTeacher(null);
+
+		return teacherClass;
+	}
+
+	public List<TeacherSubject> getTeacherSubjects() {
+		return this.teacherSubjects;
+	}
+
+	public void setTeacherSubjects(List<TeacherSubject> teacherSubjects) {
+		this.teacherSubjects = teacherSubjects;
+	}
+
+	public TeacherSubject addTeacherSubject(TeacherSubject teacherSubject) {
+		getTeacherSubjects().add(teacherSubject);
+		teacherSubject.setTeacher(this);
+
+		return teacherSubject;
+	}
+
+	public TeacherSubject removeTeacherSubject(TeacherSubject teacherSubject) {
+		getTeacherSubjects().remove(teacherSubject);
+		teacherSubject.setTeacher(null);
+
+		return teacherSubject;
 	}
 
 	public District getDistrict() {
@@ -146,14 +182,6 @@ public class Teacher implements Serializable {
 
 	public void setDistrict(District district) {
 		this.district = district;
-	}
-
-	public Subject getSubject() {
-		return this.subject;
-	}
-
-	public void setSubject(Subject subject) {
-		this.subject = subject;
 	}
 
 }

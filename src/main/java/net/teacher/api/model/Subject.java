@@ -24,9 +24,9 @@ public class Subject implements Serializable {
 
 	private byte status;
 
-	//bi-directional many-to-one association to Teacher
+	//bi-directional many-to-one association to TeacherSubject
 	@OneToMany(mappedBy="subject")
-	private List<Teacher> teachers;
+	private List<TeacherSubject> teacherSubjects;
 
 	public Subject() {
 	}
@@ -63,26 +63,26 @@ public class Subject implements Serializable {
 		this.status = status;
 	}
 
-	public List<Teacher> getTeachers() {
-		return this.teachers;
+	public List<TeacherSubject> getTeacherSubjects() {
+		return this.teacherSubjects;
 	}
 
-	public void setTeachers(List<Teacher> teachers) {
-		this.teachers = teachers;
+	public void setTeacherSubjects(List<TeacherSubject> teacherSubjects) {
+		this.teacherSubjects = teacherSubjects;
 	}
 
-	public Teacher addTeacher(Teacher teacher) {
-		getTeachers().add(teacher);
-		teacher.setSubject(this);
+	public TeacherSubject addTeacherSubject(TeacherSubject teacherSubject) {
+		getTeacherSubjects().add(teacherSubject);
+		teacherSubject.setSubject(this);
 
-		return teacher;
+		return teacherSubject;
 	}
 
-	public Teacher removeTeacher(Teacher teacher) {
-		getTeachers().remove(teacher);
-		teacher.setSubject(null);
+	public TeacherSubject removeTeacherSubject(TeacherSubject teacherSubject) {
+		getTeacherSubjects().remove(teacherSubject);
+		teacherSubject.setSubject(null);
 
-		return teacher;
+		return teacherSubject;
 	}
 
 }
