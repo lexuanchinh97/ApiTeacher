@@ -1,7 +1,12 @@
 package net.teacher.api.controller;
 
+import static net.teacher.api.model.Constants.TOKEN_PREFIX;
+import static net.teacher.api.model.Constants.HEADER_STRING;
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -69,6 +74,19 @@ public class CustomerController {
 		String password=bCryptPasswordEncoder.encode(customer.getPassword());
 		customer.setPassword(password);
 		customerService.create(customer);
+		return new ResponseEntity<BaseResponse>(response, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/profile",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<BaseResponse> profile(HttpServletRequest req){
+		String header=req.getHeader(HEADER_STRING);
+		String authToken = header.replace(TOKEN_PREFIX,"");
+		String username = jwtTokenUtil.getUsernameFromToken(authToken);
+		Customer customer=customerRepository.findByUsername(username);
+		BaseResponse response=new BaseResponse();
+		response.setMessage(ResponseStatusEnum.SUCCESS);
+		response.setStatus(ResponseStatusEnum.SUCCESS);
+		response.setData(customer);
 		return new ResponseEntity<BaseResponse>(response, HttpStatus.OK);
 	}
 }
