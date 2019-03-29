@@ -2,6 +2,9 @@ package net.teacher.api.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.List;
 
 
@@ -25,6 +28,7 @@ public class Subject implements Serializable {
 	private byte status;
 
 	//bi-directional many-to-one association to TeacherSubject
+	@JsonIgnore
 	@OneToMany(mappedBy="subject")
 	private List<TeacherSubject> teacherSubjects;
 
@@ -61,28 +65,6 @@ public class Subject implements Serializable {
 
 	public void setStatus(byte status) {
 		this.status = status;
-	}
-
-	public List<TeacherSubject> getTeacherSubjects() {
-		return this.teacherSubjects;
-	}
-
-	public void setTeacherSubjects(List<TeacherSubject> teacherSubjects) {
-		this.teacherSubjects = teacherSubjects;
-	}
-
-	public TeacherSubject addTeacherSubject(TeacherSubject teacherSubject) {
-		getTeacherSubjects().add(teacherSubject);
-		teacherSubject.setSubject(this);
-
-		return teacherSubject;
-	}
-
-	public TeacherSubject removeTeacherSubject(TeacherSubject teacherSubject) {
-		getTeacherSubjects().remove(teacherSubject);
-		teacherSubject.setSubject(null);
-
-		return teacherSubject;
 	}
 
 }

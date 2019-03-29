@@ -2,6 +2,9 @@ package net.teacher.api.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.List;
 
 
@@ -25,6 +28,7 @@ public class ClassMate implements Serializable {
 	private byte status;
 
 	//bi-directional many-to-one association to TeacherClass
+	@JsonIgnore
 	@OneToMany(mappedBy="classMate")
 	private List<TeacherClass> teacherClasses;
 

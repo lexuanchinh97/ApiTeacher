@@ -2,6 +2,10 @@ package net.teacher.api.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import java.util.List;
 
 
@@ -40,10 +44,12 @@ public class Teacher implements Serializable {
 	private String university;
 
 	//bi-directional many-to-one association to TeacherClass
+	@JsonIgnore
 	@OneToMany(mappedBy="teacher")
 	private List<TeacherClass> teacherClasses;
 
 	//bi-directional many-to-one association to TeacherSubject
+	@JsonIgnore
 	@OneToMany(mappedBy="teacher")
 	private List<TeacherSubject> teacherSubjects;
 
@@ -55,12 +61,14 @@ public class Teacher implements Serializable {
 	@JoinTable(name = "teacher_subject",
 	joinColumns = @JoinColumn(name = "teacher_id"),
 	inverseJoinColumns = @JoinColumn(name = "subject_id"))
+	@JsonManagedReference
 	private List<Subject> subjects;
 	
 	@ManyToMany
 	@JoinTable(name = "teacher_class",
 	joinColumns = @JoinColumn(name = "teacher_id"),
 	inverseJoinColumns = @JoinColumn(name = "classes_id"))
+	@JsonManagedReference
 	private List<ClassMate> classMate;
 
 	public Teacher() {
@@ -162,4 +170,21 @@ public class Teacher implements Serializable {
 		this.district = district;
 	}
 
+	public List<Subject> getSubjects() {
+		return subjects;
+	}
+
+	public void setSubjects(List<Subject> subjects) {
+		this.subjects = subjects;
+	}
+
+	public List<ClassMate> getClassMate() {
+		return classMate;
+	}
+
+	public void setClassMate(List<ClassMate> classMate) {
+		this.classMate = classMate;
+	}
+	
+	
 }

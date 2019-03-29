@@ -45,6 +45,11 @@ public class TeacherController {
 		List<Teacher> teachers=teacherService.findAll(gender,subjectId,classId,districtId);
 		response.setData(teachers);
 		return new ResponseEntity<BaseResponse>(response, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/create",method=RequestMethod.POST,produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<BaseResponse> create(){
+		return null;
 		
 	}
 }
