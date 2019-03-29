@@ -70,6 +70,5 @@ public class CustomerController {
 		customer.setPassword(password);
 		customerService.create(customer);
 		return new ResponseEntity<BaseResponse>(response, HttpStatus.OK);
-
 	}
 }

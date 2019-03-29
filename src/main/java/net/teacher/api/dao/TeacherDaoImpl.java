@@ -37,13 +37,21 @@ public class TeacherDaoImpl extends AbstractDao<Integer, Teacher> implements Tea
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Teacher> findAll(int districtId, int subjectId, int classId, byte gender) {
+	public List<Teacher> findAll(int gender,int subjectId,int classId,int districtId) {
 		// TODO Auto-generated method stub
 		Criteria criteria=sessionFactory.getCurrentSession()
 				.createCriteria(Teacher.class)
 				.addOrder(Property.forName("id").desc());
 		if(districtId>0) {
 			criteria.add(Restrictions.eq("district.id", districtId));
+		}
+		if(classId>0) {
+			criteria.createAlias("classMate", "t");
+			criteria.add(Restrictions.eq("t.id", classId));
+		}
+		if(subjectId>0) {
+			criteria.createAlias("subjects", "f");
+			criteria.add(Restrictions.eq("f.id", subjectId));
 		}
 		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		return criteria.list();

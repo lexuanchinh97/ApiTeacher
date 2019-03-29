@@ -19,6 +19,8 @@ public class Teacher implements Serializable {
 	private int id;
 
 	private String address;
+	
+	private String name;
 
 	@Lob
 	private String description;
@@ -46,8 +48,20 @@ public class Teacher implements Serializable {
 	private List<TeacherSubject> teacherSubjects;
 
 	//bi-directional many-to-one association to District
-	@ManyToOne
+	@ManyToOne()
 	private District district;
+	
+	@ManyToMany
+	@JoinTable(name = "teacher_subject",
+	joinColumns = @JoinColumn(name = "teacher_id"),
+	inverseJoinColumns = @JoinColumn(name = "subject_id"))
+	private List<Subject> subjects;
+	
+	@ManyToMany
+	@JoinTable(name = "teacher_class",
+	joinColumns = @JoinColumn(name = "teacher_id"),
+	inverseJoinColumns = @JoinColumn(name = "classes_id"))
+	private List<ClassMate> classMate;
 
 	public Teacher() {
 	}
@@ -58,6 +72,14 @@ public class Teacher implements Serializable {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getAddress() {
@@ -130,50 +152,6 @@ public class Teacher implements Serializable {
 
 	public void setUniversity(String university) {
 		this.university = university;
-	}
-
-	public List<TeacherClass> getTeacherClasses() {
-		return this.teacherClasses;
-	}
-
-	public void setTeacherClasses(List<TeacherClass> teacherClasses) {
-		this.teacherClasses = teacherClasses;
-	}
-
-	public TeacherClass addTeacherClass(TeacherClass teacherClass) {
-		getTeacherClasses().add(teacherClass);
-		teacherClass.setTeacher(this);
-
-		return teacherClass;
-	}
-
-	public TeacherClass removeTeacherClass(TeacherClass teacherClass) {
-		getTeacherClasses().remove(teacherClass);
-		teacherClass.setTeacher(null);
-
-		return teacherClass;
-	}
-
-	public List<TeacherSubject> getTeacherSubjects() {
-		return this.teacherSubjects;
-	}
-
-	public void setTeacherSubjects(List<TeacherSubject> teacherSubjects) {
-		this.teacherSubjects = teacherSubjects;
-	}
-
-	public TeacherSubject addTeacherSubject(TeacherSubject teacherSubject) {
-		getTeacherSubjects().add(teacherSubject);
-		teacherSubject.setTeacher(this);
-
-		return teacherSubject;
-	}
-
-	public TeacherSubject removeTeacherSubject(TeacherSubject teacherSubject) {
-		getTeacherSubjects().remove(teacherSubject);
-		teacherSubject.setTeacher(null);
-
-		return teacherSubject;
 	}
 
 	public District getDistrict() {

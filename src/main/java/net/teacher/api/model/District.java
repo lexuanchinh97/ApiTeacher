@@ -53,26 +53,4 @@ public class District implements Serializable {
 		this.name = name;
 	}
 
-	public List<Teacher> getTeachers() {
-		return this.teachers;
-	}
-
-	public void setTeachers(List<Teacher> teachers) {
-		this.teachers = teachers;
-	}
-
-	public Teacher addTeacher(Teacher teacher) {
-		getTeachers().add(teacher);
-		teacher.setDistrict(this);
-
-		return teacher;
-	}
-
-	public Teacher removeTeacher(Teacher teacher) {
-		getTeachers().remove(teacher);
-		teacher.setDistrict(null);
-
-		return teacher;
-	}
-
 }

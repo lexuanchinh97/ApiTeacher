@@ -8,5 +8,5 @@ public interface TeacherDao {
 	void create(Teacher teacher);
 	void update(Teacher teacher);
 	List<Teacher>findAll();
-	List<Teacher>findAll(int districtId,int subjectId,int classId,byte gender);
+	List<Teacher>findAll(int gender,int subjectId,int classId,int districtId);
 }

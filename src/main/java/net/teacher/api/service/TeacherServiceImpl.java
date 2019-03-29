@@ -31,5 +31,13 @@ public class TeacherServiceImpl implements TeacherService{
 		// TODO Auto-generated method stub
 		return dao.findAll();
 	}
+
+	@Override
+	public List<Teacher> findAll(int gender, int subjectId, int classId, int districtId) {
+		// TODO Auto-generated method stub
+		return dao.findAll(gender, subjectId, classId, districtId);
+	}
+
+	
 	
 }
