@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import net.teacher.api.helper.ResponseStatusEnum;
 import net.teacher.api.model.Teacher;
 import net.teacher.api.model.request.BaseResponse;
+import net.teacher.api.model.request.TeacherRequest;
 import net.teacher.api.service.TeacherService;
 
 @RestController
@@ -48,8 +50,24 @@ public class TeacherController {
 	}
 	
 	@RequestMapping(value="/create",method=RequestMethod.POST,produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<BaseResponse> create(){
-		return null;
+	public ResponseEntity<BaseResponse> create(@RequestBody TeacherRequest request) {
+		BaseResponse response=new BaseResponse();
+		response.setData(null);
+		response.setMessage(ResponseStatusEnum.SUCCESS);
+		response.setStatus(ResponseStatusEnum.SUCCESS);
+		Teacher teacher=new Teacher();
+		teacher.setAddress(request.getAddress());
+		teacher.setDescription(request.getDescription());
+		teacher.setEmail(request.getEmail());
+		teacher.setGender((byte)request.getGender());
+		teacher.setJob(request.getJob());
+		teacher.setName(request.getName());
+		teacher.setPhone(request.getPhone());
+		teacher.setUniversity(request.getUniversity());
+		teacher.setSalary(request.getSalary());
+		
+		teacherService.create(teacher);
+		return new ResponseEntity<BaseResponse>(response, HttpStatus.OK);
 		
 	}
 }
