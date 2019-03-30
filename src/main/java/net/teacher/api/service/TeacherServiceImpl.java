@@ -38,6 +38,12 @@ public class TeacherServiceImpl implements TeacherService{
 		return dao.findAll(gender, subjectId, classId, districtId);
 	}
 
+	@Override
+	public Teacher findByPhone(String phone) {
+		// TODO Auto-generated method stub
+		return dao.findByPhone(phone);
+	}
+
 	
 	
 }

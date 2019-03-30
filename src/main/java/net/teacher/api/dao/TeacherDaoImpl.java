@@ -56,6 +56,12 @@ public class TeacherDaoImpl extends AbstractDao<Integer, Teacher> implements Tea
 		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		return criteria.list();
 	}
+
+	@Override
+	public Teacher findByPhone(String phone) {
+		// TODO Auto-generated method stub
+		return (Teacher) sessionFactory.getCurrentSession().createCriteria(Teacher.class).add(Restrictions.eq("phone", phone)).uniqueResult();
+	}
 	
 	
 

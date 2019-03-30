@@ -9,4 +9,5 @@ public interface TeacherService {
 	void update(Teacher teacher);
 	List<Teacher>findAll();
 	List<Teacher>findAll(int gender,int subjectId,int classId,int districtId);
+	Teacher findByPhone(String phone);
 }

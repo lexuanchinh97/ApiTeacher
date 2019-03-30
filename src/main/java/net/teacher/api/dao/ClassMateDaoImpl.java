@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import net.teacher.api.model.ClassMate;
 
-@Repository("ClassMateDao")
+@Repository("classMateDao")
 public class ClassMateDaoImpl extends AbstractDao<Integer, ClassMate> implements ClassMateDao{
 	
 	@Autowired
