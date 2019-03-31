@@ -42,6 +42,10 @@ public class Teacher implements Serializable {
 	private byte status;
 
 	private String university;
+	
+	private int number;
+	
+	private int time;
 
 	//bi-directional many-to-one association to TeacherClass
 	@JsonIgnore
@@ -164,6 +168,24 @@ public class Teacher implements Serializable {
 
 	public District getDistrict() {
 		return this.district;
+	}
+
+	
+	
+	public int getNumber() {
+		return number;
+	}
+
+	public void setNumber(int number) {
+		this.number = number;
+	}
+
+	public int getTime() {
+		return time;
+	}
+
+	public void setTime(int time) {
+		this.time = time;
 	}
 
 	public void setDistrict(District district) {
