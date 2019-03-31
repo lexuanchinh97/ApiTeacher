@@ -10,4 +10,5 @@ public interface TeacherService {
 	List<Teacher>findAll();
 	List<Teacher>findAll(int gender,int subjectId,int classId,int districtId);
 	Teacher findByPhone(String phone);
+	Teacher findOne(int id);
 }

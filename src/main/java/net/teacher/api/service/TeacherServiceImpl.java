@@ -44,6 +44,12 @@ public class TeacherServiceImpl implements TeacherService{
 		return dao.findByPhone(phone);
 	}
 
+	@Override
+	public Teacher findOne(int id) {
+		// TODO Auto-generated method stub
+		return dao.findOne(id);
+	}
+
 	
 	
 }

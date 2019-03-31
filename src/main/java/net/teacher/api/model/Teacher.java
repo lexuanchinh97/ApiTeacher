@@ -45,7 +45,7 @@ public class Teacher implements Serializable {
 	
 	private int number;
 	
-	private int time;
+	private String time;
 
 	//bi-directional many-to-one association to TeacherClass
 	@JsonIgnore
@@ -180,11 +180,11 @@ public class Teacher implements Serializable {
 		this.number = number;
 	}
 
-	public int getTime() {
+	public String getTime() {
 		return time;
 	}
 
-	public void setTime(int time) {
+	public void setTime(String time) {
 		this.time = time;
 	}
 

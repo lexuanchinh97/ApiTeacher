@@ -62,6 +62,12 @@ public class TeacherDaoImpl extends AbstractDao<Integer, Teacher> implements Tea
 		// TODO Auto-generated method stub
 		return (Teacher) sessionFactory.getCurrentSession().createCriteria(Teacher.class).add(Restrictions.eq("phone", phone)).uniqueResult();
 	}
+
+	@Override
+	public Teacher findOne(int id) {
+		// TODO Auto-generated method stub
+		return (Teacher) sessionFactory.getCurrentSession().createCriteria(Teacher.class).add(Restrictions.eq("id", id)).uniqueResult();
+	}
 	
 	
 

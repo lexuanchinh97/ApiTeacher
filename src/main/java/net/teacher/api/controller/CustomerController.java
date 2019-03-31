@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import net.teacher.api.model.request.BaseResponse;
+import net.teacher.api.model.request.CustomerRequest;
 import net.teacher.api.model.AuthToken;
 import net.teacher.api.model.Customer;
 import net.teacher.api.model.request.LoginUser;
@@ -88,5 +89,22 @@ public class CustomerController {
 		response.setStatus(ResponseStatusEnum.SUCCESS);
 		response.setData(customer);
 		return new ResponseEntity<BaseResponse>(response, HttpStatus.OK);
+	}
+	
+	public ResponseEntity<BaseResponse>update(HttpServletRequest req,@RequestBody CustomerRequest request){
+		String header=req.getHeader(HEADER_STRING);
+		String authToken = header.replace(TOKEN_PREFIX,"");
+		String username = jwtTokenUtil.getUsernameFromToken(authToken);
+		Customer customer=customerRepository.findByUsername(username);
+		customer.setAddress(request.getAddress());
+		customer.setEmail(request.getEmail());
+		customer.setPhone(request.getPhone());
+		customer.setUsername(request.getUsername());
+		BaseResponse response=new BaseResponse();
+		response.setMessage(ResponseStatusEnum.SUCCESS);
+		response.setStatus(ResponseStatusEnum.SUCCESS);
+		response.setData(customer);
+		return new ResponseEntity<BaseResponse>(response, HttpStatus.OK);
+		
 	}
 }
