@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import net.teacher.api.helper.ResponseStatusEnum;
 import net.teacher.api.model.ClassMate;
+import net.teacher.api.model.Customer;
 import net.teacher.api.model.District;
 import net.teacher.api.model.Subject;
 import net.teacher.api.model.Teacher;
@@ -22,6 +23,7 @@ import net.teacher.api.model.TeacherClass;
 import net.teacher.api.model.TeacherSubject;
 import net.teacher.api.model.request.BaseResponse;
 import net.teacher.api.model.request.TeacherRequest;
+import net.teacher.api.repository.CustomerRepository;
 import net.teacher.api.service.ClassMateService;
 import net.teacher.api.service.DistrictService;
 import net.teacher.api.service.SubjectService;
@@ -43,6 +45,8 @@ public class TeacherController {
 	@Autowired private ClassMateService classMateService;
 	
 	@Autowired private DistrictService districtService;
+	
+	@Autowired private CustomerRepository customerRepository;
 	
 	@RequestMapping(value="",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<BaseResponse> getAll(){
@@ -95,6 +99,8 @@ public class TeacherController {
 		teacher.setSalary(request.getSalary());	
 		District district=districtService.findOne(request.getDistrictId());
 		teacher.setDistrict(district);
+		Customer customer = customerRepository.findByUsername(request.getUsername());
+		teacher.setCustomer(customer);
 		teacherService.create(teacher);
 		Teacher teacherTemp=teacherService.findByPhone(request.getPhone());
 		String[] listSubjectId=request.getListSubjectId().split(",");
@@ -122,4 +128,18 @@ public class TeacherController {
 		Teacher teacher=teacherService.findOne(id);
 		return new ResponseEntity<Teacher>(teacher, HttpStatus.OK);
 	}
+	
+	@RequestMapping(value="/get-post",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<BaseResponse> findByCustomer(@RequestParam(name="username") String username){
+		BaseResponse response=new BaseResponse();
+		response.setData(null);
+		response.setMessage(ResponseStatusEnum.SUCCESS);
+		response.setStatus(ResponseStatusEnum.SUCCESS);
+		Customer customer = customerRepository.findByUsername(username);
+		List<Teacher> teachers=teacherService.findByCustomer(customer.getId());
+		response.setData(teachers);
+		return new ResponseEntity<BaseResponse>(response, HttpStatus.OK); 
+		
+	}
+	
 }

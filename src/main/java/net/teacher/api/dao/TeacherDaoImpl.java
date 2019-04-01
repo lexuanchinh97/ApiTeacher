@@ -68,6 +68,13 @@ public class TeacherDaoImpl extends AbstractDao<Integer, Teacher> implements Tea
 		// TODO Auto-generated method stub
 		return (Teacher) sessionFactory.getCurrentSession().createCriteria(Teacher.class).add(Restrictions.eq("id", id)).uniqueResult();
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Teacher> findByCustomer(int customerId) {
+		// TODO Auto-generated method stub
+		return sessionFactory.getCurrentSession().createCriteria(Teacher.class).add(Restrictions.eq("customer.id", customerId)).list();
+	}
 	
 	
 

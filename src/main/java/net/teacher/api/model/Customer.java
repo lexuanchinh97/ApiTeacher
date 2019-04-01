@@ -1,7 +1,10 @@
 package net.teacher.api.model;
 
 import java.io.Serializable;
+import java.util.List;
+
 import javax.persistence.*;
+
 
 
 /**
@@ -26,6 +29,10 @@ public class Customer implements Serializable {
 	private String phone;
 
 	private String username;
+	
+	//bi-directional many-to-one association to Teacher
+	@OneToMany(mappedBy="customer")
+	private List<Teacher> teachers;
 
 	public Customer() {
 	}

@@ -6,6 +6,7 @@ import javax.persistence.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+
 import java.util.List;
 
 
@@ -46,6 +47,9 @@ public class Teacher implements Serializable {
 	private int number;
 	
 	private String time;
+	
+	@ManyToOne
+	private Customer customer;
 
 	//bi-directional many-to-one association to TeacherClass
 	@JsonIgnore
@@ -207,6 +211,11 @@ public class Teacher implements Serializable {
 	public void setClassMate(List<ClassMate> classMate) {
 		this.classMate = classMate;
 	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+	
 	
 	
 }

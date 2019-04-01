@@ -23,6 +23,8 @@ public class TeacherRequest {
 
 	private String university;
 	
+	private String username;
+	
 	private int districtId;
 	
 	private String listSubjectId;
@@ -54,6 +56,14 @@ public class TeacherRequest {
 
 	public void setListClassId(String listClassId) {
 		this.listClassId = listClassId;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getAddress() {

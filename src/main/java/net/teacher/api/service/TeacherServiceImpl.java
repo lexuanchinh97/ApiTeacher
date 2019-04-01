@@ -50,6 +50,14 @@ public class TeacherServiceImpl implements TeacherService{
 		return dao.findOne(id);
 	}
 
+	@Override
+	public List<Teacher> findByCustomer(int customerId) {
+		// TODO Auto-generated method stub
+		return dao.findByCustomer(customerId);
+	}
+
+	
+
 	
 	
 }
