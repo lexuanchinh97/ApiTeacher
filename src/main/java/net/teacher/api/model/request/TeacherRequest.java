@@ -25,6 +25,10 @@ public class TeacherRequest {
 	
 	private String username;
 	
+	private int number;
+	
+	private String time;
+	
 	private int districtId;
 	
 	private String listSubjectId;
@@ -145,5 +149,23 @@ public class TeacherRequest {
 	public void setUniversity(String university) {
 		this.university = university;
 	}
+
+	public int getNumber() {
+		return number;
+	}
+
+	public void setNumber(int number) {
+		this.number = number;
+	}
+
+	public String getTime() {
+		return time;
+	}
+
+	public void setTime(String time) {
+		this.time = time;
+	}
+	
+	
 	
 }

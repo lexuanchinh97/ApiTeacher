@@ -97,6 +97,9 @@ public class TeacherController {
 		teacher.setPhone(request.getPhone());
 		teacher.setUniversity(request.getUniversity());
 		teacher.setSalary(request.getSalary());	
+		teacher.setTime(request.getTime());
+		teacher.setNumber(request.getNumber());
+		teacher.setDescription("test");
 		District district=districtService.findOne(request.getDistrictId());
 		teacher.setDistrict(district);
 		Customer customer = customerRepository.findByUsername(request.getUsername());
