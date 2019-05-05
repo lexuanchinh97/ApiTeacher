@@ -31,4 +31,10 @@ public class CustomerDaoImpl extends AbstractDao<Integer, Customer> implements C
 		return (Customer) sessionFactory.getCurrentSession().createCriteria(Customer.class).add(Restrictions.eq("id", id)).uniqueResult();
 	}
 
+	@Override
+	public Customer findByUsername(String username) {
+		// TODO Auto-generated method stub
+		return (Customer) sessionFactory.getCurrentSession().createCriteria(Customer.class).add(Restrictions.eq("username", username)).uniqueResult();
+	}
+
 }

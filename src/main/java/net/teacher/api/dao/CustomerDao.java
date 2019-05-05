@@ -6,4 +6,5 @@ public interface CustomerDao {
 	void create(Customer customer);
 	void update(Customer customer);
 	Customer findOne(int id);
+	Customer findByUsername(String username);
 }

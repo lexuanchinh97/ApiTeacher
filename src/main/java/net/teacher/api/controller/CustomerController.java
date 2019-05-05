@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import net.teacher.api.model.request.BaseResponse;
+import net.teacher.api.model.request.ChangePassword;
 import net.teacher.api.model.request.CustomerRequest;
 import net.teacher.api.model.AuthToken;
 import net.teacher.api.model.Customer;
@@ -91,7 +91,7 @@ public class CustomerController {
 		response.setData(customer);
 		return new ResponseEntity<BaseResponse>(response, HttpStatus.OK);
 	}
-	@RequestMapping(value="/update",method=RequestMethod.POST,produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(value="/update",method=RequestMethod.POST)
 	public ResponseEntity<BaseResponse>update(HttpServletRequest req,@RequestBody CustomerRequest request){
 		String header=req.getHeader(HEADER_STRING);
 		String authToken = header.replace(TOKEN_PREFIX,"");
@@ -109,18 +109,19 @@ public class CustomerController {
 		return new ResponseEntity<BaseResponse>(response, HttpStatus.OK);
 		
 	}
-	@RequestMapping(value="/change-password",method=RequestMethod.POST,produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<BaseResponse> changePasswrod(HttpServletRequest req,@RequestParam(name="password") String password){
+	@RequestMapping(value="/change-password",method=RequestMethod.POST)
+	public ResponseEntity<BaseResponse> changePasswrod(HttpServletRequest req,@RequestBody ChangePassword changePassword) throws AuthenticationException{
 		String header=req.getHeader(HEADER_STRING);
 		String authToken = header.replace(TOKEN_PREFIX,"");
 		String username = jwtTokenUtil.getUsernameFromToken(authToken);
-		Customer customer=customerRepository.findByUsername(username);
-		customer.setPassword(bCryptPasswordEncoder.encode(password));
+		Customer customer=customerService.findByUsername(username);
+		authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, changePassword.getOldPass()));
+		customer.setPassword(bCryptPasswordEncoder.encode(changePassword.getNewPass()));
+		customerService.update(customer);
 		BaseResponse response=new BaseResponse();
 		response.setMessage(ResponseStatusEnum.SUCCESS);
 		response.setStatus(ResponseStatusEnum.SUCCESS);
 		response.setData(null);
-		customerService.update(customer);
 		return new ResponseEntity<BaseResponse>(response, HttpStatus.OK);
 		
 	}

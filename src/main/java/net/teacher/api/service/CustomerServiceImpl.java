@@ -33,4 +33,10 @@ public class CustomerServiceImpl implements CustomerService{
 		return dao.findOne(id);
 	}
 
+	@Override
+	public Customer findByUsername(String username) {
+		// TODO Auto-generated method stub
+		return dao.findByUsername(username);
+	}
+
 }
