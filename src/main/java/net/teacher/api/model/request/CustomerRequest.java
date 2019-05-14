@@ -7,7 +7,6 @@ public class CustomerRequest {
 
 	private String phone;
 
-	private String username;
 
 	public String getAddress() {
 		return address;
@@ -33,13 +32,7 @@ public class CustomerRequest {
 		this.phone = phone;
 	}
 
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
+	
 	
 	
 }

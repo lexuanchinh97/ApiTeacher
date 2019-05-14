@@ -96,11 +96,10 @@ public class CustomerController {
 		String header=req.getHeader(HEADER_STRING);
 		String authToken = header.replace(TOKEN_PREFIX,"");
 		String username = jwtTokenUtil.getUsernameFromToken(authToken);
-		Customer customer=customerRepository.findByUsername(username);
+		Customer customer=customerService.findByUsername(username);
 		customer.setAddress(request.getAddress());
 		customer.setEmail(request.getEmail());
 		customer.setPhone(request.getPhone());
-		customer.setUsername(request.getUsername());
 		customerService.update(customer);
 		BaseResponse response=new BaseResponse();
 		response.setMessage(ResponseStatusEnum.SUCCESS);
